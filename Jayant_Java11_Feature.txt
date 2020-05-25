@@ -1,0 +1,84 @@
+1.Local-Variable Syntax for Lambda Parameters: 
+	* JDK 11 allows ‘var’ to be used in lambda expressions. 
+	* This was introduced to be consistent with local ‘var’ syntax of Java 10.
+	* Eg: list.stream()
+			.map((var s) -> s.toLowerCase())
+			.collect(Collectors.toList());
+
+2.Launch Single-File Source-Code Programs:
+	* JDK11’s new single-file launcher allows executing Java source codes directly using the java interpreter. 
+	* The source code is compiled in memory and then executed by the interpreter. 
+	* The limitation is that all the classes have to be defined in the same file.
+	* Eg: public class SingleFileLauncher {
+			public static void main(String[] args) {
+				System.out.println("Hello World!!!");
+			}
+		}
+	* Above program can directly run by using command SingleFileLauncher.java, no need to use command javac.
+	
+3.Java String Methods
+	i. isBlank() – 
+			* This instance method returns a boolean value. 
+			* Empty Strings and Strings with only white spaces are treated as blank.
+			
+			* Eg:	
+					System.out.println(" ".isBlank()); //true
+					String s = "Jayant";
+					System.out.println(s.isBlank()); //false
+					String s1 = "";
+					System.out.println(s1.isBlank()); //true
+	
+	ii. lines() - 
+			* This method is to return a collection of strings which are divided by line terminators.
+			* Eg: String str = "Jayant\nis\na\ndeveloper"; 
+				  System.out.println(str.lines() 
+										.collect(Collectors.toList()));
+				o/p: Jayant
+					 is
+					 a 
+					 developer
+	
+	iii.strip(), stripLeading(), stripTrailing()
+			* strip() – Removes the white space from both, beginning and the end of string
+			* Eg: String str = " JayantVishnu "; 
+				  System.out.println(str.strip());
+			  O/p: JayantVishnu
+		
+			* stripLeading() - It is used to remove the white-space which is in-front of the string
+			* Eg: String str = " JayantVishnu"; 
+				  System.out.println(str.stripLeading());
+			  O/p: JayantVishnu
+			  
+			* stripTrailing() - It is used to remove the white-space which is in back of the string
+			* Eg: String str = "JayantVishnu "; 
+				  System.out.println(str.strip());	
+			  O/p: JayantVishnu
+			  
+	iv.repeat(n) -
+			* Result is the concatenated string of original string repeated the number of times in the argument.
+			* Eg: String str = "JayantVishnu"; 
+				  System.out.println(str.repeat(4));
+				 
+			  O/p: JayantVishnuJayantVishnuJayantVishnuJayantVishnu
+
+4. Pattern recognizing methods
+	* asMatchPredicate() - 
+		* This method is similar to Java 8 method asPredicate().
+		* Introduced in JDK 11, this method will create a predicate if pattern matches with input string.
+		* Eg: a) Pattern<String> chracterPredicate = Pattern.compile("jayant").asPredicate();
+				 Stream.of("coding","jayant","vishnu")
+					   .filter(chracterPredicate)
+					   .forEach(System.out::println);
+				O/p: jayant
+					   
+			  b) String str = Pattern.compile("aba").asMatchPredicate();
+				 str.test(aabb); //false
+				 str.test(aba); //true
+				 
+5. TimeUnit Conversion Method
+	* long convert(java.time.Duration) - 
+		* This method is used to convert the given time to a unit like DAY, MONTH, YEAR and for time too.
+		* Eg: TimeUnit time = TimeUnit.DAYS;
+			  time.convert(Duration.ofHours(24));
+			  
+			O/p: 1
